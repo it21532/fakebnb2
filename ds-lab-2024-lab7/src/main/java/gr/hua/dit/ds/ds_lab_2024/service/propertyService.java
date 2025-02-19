@@ -9,10 +9,7 @@ import gr.hua.dit.ds.ds_lab_2024.repositories.ownerRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-
-import java.math.BigDecimal;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class propertyService {
@@ -41,39 +38,12 @@ public class propertyService {
     }
 
     @Transactional
-    public void assignownerToproperty(String propertyTitle, Owner owner) {
-        property property = propertyRepository.findById(propertyTitle).get();
-        System.out.println(property);
-        System.out.println(property.getOwner());
-        property.setOwner(owner);
-        System.out.println(property.getOwner());
-        propertyRepository.save(property);
-    }
-
-    @Transactional
-    public void unassignownerFromproperty(String propertyTitle) {
-        property property = propertyRepository.findById(propertyTitle).get();
-        property.setOwner(null);
-        propertyRepository.save(property);
-    }
-
-    @Transactional
-    public void assignTenantToproperty(String propertyTitle, Tenant tenant) {
-        property property = propertyRepository.findById(propertyTitle).get();
-        property.addTenant(tenant);
-        System.out.println("property Tenants: ");
-        System.out.println(property.getTenants());
-        propertyRepository.save(property);
-    }
-
-    @Transactional
     public List<property> getPropertiesByStatus(PropertyStatus status) {
         return propertyRepository.findByStatus(status);
     }
 
     @Transactional
     public List<property> getPropertiesByOwner(String ownerUsername) {
-        // This method assumes your propertyRepository has a corresponding query method.
         return propertyRepository.findByOwnerUsername(ownerUsername);
     }
 
@@ -88,7 +58,7 @@ public class propertyService {
         return propertyRepository.findByStatus(PropertyStatus.APPROVED);
     }
     @Transactional
-    public List<property> getPropertiesBySquareMetersRange(double minSquareMeters, double maxSquareMeters) {
+    public List<property> getPropertiesBySquareMetersRange(Integer minSquareMeters, Integer maxSquareMeters) {
         return propertyRepository.findBySquareMetersBetweenAndStatus(minSquareMeters, maxSquareMeters, PropertyStatus.APPROVED);
     }
     @Transactional
@@ -96,7 +66,7 @@ public class propertyService {
         return propertyRepository.findByStatus(PropertyStatus.APPROVED, sort);
     }
     @Transactional
-    public List<property> getPropertiesByPriceRange(BigDecimal minPrice, BigDecimal maxPrice) {
+    public List<property> getPropertiesByPriceRange(Integer minPrice, Integer maxPrice) {
         return propertyRepository.findByPriceBetweenAndStatus(minPrice, maxPrice, PropertyStatus.APPROVED);
     }
     @Transactional

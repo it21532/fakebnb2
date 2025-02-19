@@ -25,7 +25,7 @@ public class AdminPropertyController {
     public String showPendingProperties(Model model) {
         List<property> pendingProperties = propertyService.getPropertiesByStatus(PropertyStatus.PENDING);
         model.addAttribute("pendingProperties", pendingProperties);
-        return "admin/pendingProperties"; // Corresponding Thymeleaf template.
+        return "admin/pendingProperties";
     }
 
     @PostMapping("/{title}/approve")

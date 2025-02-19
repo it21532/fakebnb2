@@ -14,7 +14,7 @@ import gr.hua.dit.ds.ds_lab_2024.service.RentalApplicationService;
 import java.util.List;
 
 @Controller
-@Secured({"ROLE_TENANT", "ROLE_ADMIN"}) // Only tenants and admins may access this endpoint.
+@Secured({"ROLE_TENANT", "ROLE_ADMIN"})
 public class TenantDashboardController {
 
     private final TenantService tenantService;

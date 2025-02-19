@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Controller
-@Secured({"ROLE_OWNER", "ROLE_ADMIN"}) // Only owners and admins can access these endpoints.
+@Secured({"ROLE_OWNER", "ROLE_ADMIN"})
 public class OwnerDashboardController {
 
     private final OwnerService ownerService;
@@ -43,7 +43,7 @@ public class OwnerDashboardController {
         model.addAttribute("owner", currentOwner);
         model.addAttribute("pendingApplications", pendingApplications);
         model.addAttribute("myProperties", myProperties);
-        return "owner/dashboard";  // Points to templates/owner/dashboard.html.
+        return "owner/dashboard";
     }
 
     @PostMapping("/owner/rentalRequests/{ownerUsername}/{appId}/approve")

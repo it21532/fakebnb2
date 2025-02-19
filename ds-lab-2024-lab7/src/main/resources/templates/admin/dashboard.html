@@ -8,8 +8,11 @@
 </head>
 <body>
 <div layout:fragment="main-content">
-    <h1>Admin Dashboard</h1>
-    <h2>Pending Property Submissions</h2>
+    <h1>Admin Dashboard </h1>
+    <a class="btn btn-primary" href="/admin/tenants" style="margin-bottom: 20px;">Tenant List</a>
+    <a class="btn btn-primary" href="/admin/owners" style="margin-bottom: 20px;">Owner List</a>
+    <a class="btn btn-primary" href="/admin/admins" style="margin-bottom: 20px;">Admin List</a>
+    <h4>Pending Property Submissions</h4>
     <div th:if="${#lists.isEmpty(pendingProperties)}">
         <p>No properties pending approval.</p>
     </div>
@@ -27,9 +30,9 @@
             <tbody>
             <tr th:each="prop : ${pendingProperties}">
                 <td th:text="${prop.title}"></td>
-                <td th:text="${prop.owner != null ? prop.owner.username : 'N/A'}"></td>
+                <td><a class="btn btn-info" th:text="${prop.owner.username}" th:href="@{'/user/' + ${prop.owner.username}}"></a></td>
                 <td th:text="${prop.price} + '€'"></td>
-                <td th:text="${prop.squareMeters} + ' m2'"></td>
+                <td th:text="${prop.squareMeters} + 'm2'"></td>
                 <td>
                     <form th:action="@{'/admin/dashboard/' + ${prop.title} + '/approve'}" method="post" style="display:inline">
                         <button type="submit" class="btn btn-success">Approve</button>

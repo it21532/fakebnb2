@@ -10,8 +10,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
-import java.math.BigDecimal;
 import java.util.List;
 
 @Controller
@@ -28,10 +26,10 @@ public class PropertyController {
     @Transactional
     public String searchProperties(
             @RequestParam(value = "filterType", required = false) String filterType,
-            @RequestParam(value = "minPrice", required = false) BigDecimal minPrice,
-            @RequestParam(value = "maxPrice", required = false) BigDecimal maxPrice,
-            @RequestParam(value = "minSquareMeters", required = false) Double minSquareMeters,
-            @RequestParam(value = "maxSquareMeters", required = false) Double maxSquareMeters,
+            @RequestParam(value = "minPrice", required = false) Integer minPrice,
+            @RequestParam(value = "maxPrice", required = false) Integer maxPrice,
+            @RequestParam(value = "minSquareMeters", required = false) Integer minSquareMeters,
+            @RequestParam(value = "maxSquareMeters", required = false) Integer maxSquareMeters,
             @RequestParam(value = "sortCriteria", required = false) String sortCriteria,
             Model model) {
 

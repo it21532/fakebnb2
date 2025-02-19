@@ -16,6 +16,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import java.util.List;
 import java.util.Optional;
 import gr.hua.dit.ds.ds_lab_2024.service.propertyService;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 public class UserController {
@@ -92,9 +93,6 @@ public class UserController {
         if (existingOpt.isPresent()) {
             User existingUser = existingOpt.get();
             existingUser.setEmail(updatedUser.getEmail());
-            if (updatedUser.getPassword() != null && !updatedUser.getPassword().trim().isEmpty()) {
-                existingUser.setPassword(passwordEncoder.encode(updatedUser.getPassword()));
-            }
             userService.updateUser(existingUser);
             return "redirect:/user/" + username;
         } else {
@@ -104,8 +102,26 @@ public class UserController {
 
 
     @PostMapping("/user/delete/{username}")
-    public String deleteUser(@PathVariable String username) {
-        userService.deleteUser(username);
+    public String deleteUser(@PathVariable String username, RedirectAttributes redirectAttributes) {
+        Optional<User> userOpt = userService.getUserByUsername(username);
+        if (userOpt.isPresent()) {
+            User user = userOpt.get();
+            if ("ROLE_OWNER".equals(user.getSecurityRole())) {
+                List<property> ownerProps = propertyService.getPropertiesByOwner(username);
+                if (ownerProps != null && !ownerProps.isEmpty()) {
+                    redirectAttributes.addFlashAttribute("errorMessage", "Make sure the account has no properties before deleting it.");
+                    return "redirect:/user/" + username;
+                }
+            }
+            userService.deleteUser(username);
+            Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+            String currentUser = auth.getName();
+            boolean isAdmin = auth.getAuthorities().stream()
+                    .anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"));
+            if (isAdmin) {
+                return "redirect:/admin/dashboard";
+            }
+        }
         return "redirect:/login?logout";
     }
 //Βοηθητικο

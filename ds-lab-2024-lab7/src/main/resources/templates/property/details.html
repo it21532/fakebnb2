@@ -1,7 +1,8 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{page_layout/layout}">
+      layout:decorate="~{page_layout/layout}" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Property Details</title>
@@ -9,7 +10,13 @@
 <body>
 <div layout:fragment="main-content">
     <h2> <p th:text="'About ' + ${title} + '...'"></p> </h2>
+    <div th:if="${property.owner != null}">
+        <a class="btn btn-info" th:href="@{'/user/' + ${property.owner.username}}">View Owner's Profile</a>
+    </div>
     <p> (More details about the property will be shown here.)<p>
+    <div sec:authorize="hasRole('ROLE_TENANT')">
+        <a class="btn btn-primary" th:href="@{'/rental/apply/' + ${property.title}}">Request Rental</a>
+    </div>
 </div>
 </body>
 </html>

@@ -82,7 +82,7 @@ public class OwnerPropertyController {
     @GetMapping("/{title}")
     public String showproperty(@PathVariable String title, Model model) {
         property property = propertyService.getproperty(title);
-        model.addAttribute("properties", property);
+        model.addAttribute("property", property);
         return "property/details";
     }
 
@@ -93,54 +93,6 @@ public class OwnerPropertyController {
         return "property/property";
     }
 
-    @GetMapping("/assign/{title}")
-    public String showAssignownerToproperty(@PathVariable String title, Model model) {
-        property property = propertyService.getproperty(title);
-        model.addAttribute("property", property);
-        return "property/assignowner";
-    }
-
-    // Unassign the owner from a property.
-    @GetMapping("/unassign/{title}")
-    public String unassignownerToproperty(@PathVariable String title, Model model) {
-        propertyService.unassignownerFromproperty(title);
-        model.addAttribute("properties", propertyService.getproperties());
-        return "property/properties";
-    }
-
-    @GetMapping("/Tenantassign/{title}")
-    public String showAssignTenantToproperty(@PathVariable String title, Model model) {
-        property property = propertyService.getproperty(title);
-        model.addAttribute("property", property);
-        return "property/assignTenant";
-    }
-.
-    @PostMapping("/assign/{title}")
-    public String assignownerToproperty(@PathVariable String title,
-                                        @RequestParam(value = "owner", required = true) String ownerUsername,
-                                        Model model) {
-        System.out.println("Assigning owner: " + ownerUsername);
-        Owner owner = ownerService.getOwnerByUsername(ownerUsername);
-        property property = propertyService.getproperty(title);
-        System.out.println("Property: " + property);
-        propertyService.assignownerToproperty(title, owner);
-        model.addAttribute("properties", propertyService.getproperties());
-        model.addAttribute("successMessage", "Form submitted successfully!");
-        return "property/properties";
-    }
-
-    @PostMapping("/Tenantassign/{title}")
-    public String assignTenantToproperty(@PathVariable String title,
-                                         @RequestParam(value = "tenant", required = true) String tenantUsername,
-                                         Model model) {
-        System.out.println("Assigning tenant: " + tenantUsername);
-        Tenant tenant = tenantService.getTenantByUsername(tenantUsername);
-        property property = propertyService.getproperty(title);
-        System.out.println("Property: " + property);
-        propertyService.assignTenantToproperty(title, tenant);
-        model.addAttribute("properties", propertyService.getproperties());
-        return "property/properties";
-    }
     @PostMapping("/delete/{title}")
     public String deleteProperty(@PathVariable String title, Principal principal, Model model) {
         Owner currentOwner = ownerService.getOwnerByUsername(principal.getName());

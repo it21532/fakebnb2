@@ -36,17 +36,10 @@ public class RentalApplicationService {
         return rentalApplicationRepository.findByPropertyOwnerUsernameAndStatus(ownerUsername, ApplicationStatus.SUBMITTED);
     }
 
-    // Return rejected applications for a tenant
     @Transactional
     public List<RentalApplication> getRejectedApplicationsForTenant(String tenantUsername) {
         return rentalApplicationRepository.findByTenantUsernameAndStatus(tenantUsername, ApplicationStatus.REJECTED);
     }
-
-//    @Transactional
-//    public List<RentalApplication> getApplicationsForTenant(String tenantUsername) {
-//        // Ensure your RentalApplicationRepository defines this method:
-//        return rentalApplicationRepository.findByTenantUsername(tenantUsername);
-//    }
 
     @Transactional
     public RentalApplication getApplicationById(Integer id) {

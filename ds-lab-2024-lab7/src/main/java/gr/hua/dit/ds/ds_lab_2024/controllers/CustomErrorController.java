@@ -17,6 +17,7 @@ public class CustomErrorController implements ErrorController {
         model.addAttribute("status", status);
         model.addAttribute("error", "An unexpected error occurred");
         model.addAttribute("message", errorMessage != null ? errorMessage : "No further details available");
+
         return "error";
     }
 }

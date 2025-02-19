@@ -1,11 +1,9 @@
 package gr.hua.dit.ds.ds_lab_2024.entities;
-
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,12 +20,12 @@ public class property {
     @Column(nullable = false)
     @NotNull(message = "Price is required")
     @Positive(message = "Price must be positive")
-    private BigDecimal price;
+    private Integer price;
 
     @NotNull(message = "Square meters is required")
     @Positive(message = "Square meters must be positive")
     @Column(nullable = false)
-    private double squareMeters;
+    private Integer squareMeters;
 
     @NotEmpty(message = "Address is required")
     @Column(nullable = false)
@@ -55,12 +53,11 @@ public class property {
         this.status = PropertyStatus.PENDING;
     }
 
-    public property(String title, BigDecimal price) {
+    public property(String title, Integer price) {
         this.title = title;
         this.price = price;
         this.status = PropertyStatus.PENDING;
     }
-
 
     public String getTitle() {
         return title;
@@ -69,10 +66,10 @@ public class property {
         this.title = title;
     }
 
-    public BigDecimal getPrice() {
+    public Integer getPrice() {
         return price;
     }
-    public void setPrice(BigDecimal price) {
+    public void setPrice(Integer price) {
         this.price = price;
     }
 
@@ -100,11 +97,11 @@ public class property {
         this.status = status;
     }
 
-    public double getSquareMeters() {
+    public Integer getSquareMeters() {
         return squareMeters;
     }
 
-    public void setSquareMeters(double squareMeters) {
+    public void setSquareMeters(Integer squareMeters) {
         this.squareMeters = squareMeters;
     }
 

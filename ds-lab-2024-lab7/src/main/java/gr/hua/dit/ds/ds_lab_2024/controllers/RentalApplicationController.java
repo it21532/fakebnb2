@@ -48,13 +48,12 @@ public class RentalApplicationController {
                                     @ModelAttribute("application") RentalApplication application,
                                     Principal principal,
                                     Model model) {
-        // Retrieve the logged-in tenant using their username.
         String tenantUsername = principal.getName();
         Tenant tenant = tenantService.getTenantByUsername(tenantUsername);
         property property = propertyService.getproperty(propertyTitle);
         rentalApplicationService.submitApplication(tenant, property);
         model.addAttribute("successMessage", "Rental application submitted successfully!");
-        return "redirect:/property"; // Redirect to the property list or tenant dashboard.
+        return "redirect:/property";
     }
 
     @Secured("ROLE_ADMIN")
@@ -62,7 +61,7 @@ public class RentalApplicationController {
     public String viewPendingApplications(Model model) {
         List<RentalApplication> pendingApplications = rentalApplicationService.getApplicationsByStatus(ApplicationStatus.SUBMITTED);
         model.addAttribute("pendingApplications", pendingApplications);
-        return "admin/pendingRentalApplications"; // Thymeleaf template.
+        return "admin/pendingRentalApplications";
     }
 
     @Secured("ROLE_ADMIN")

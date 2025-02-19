@@ -70,7 +70,6 @@
                 <th>Price</th>
                 <th>Square Meters</th>
                 <th>Owner</th>
-                <th>#Tenants</th>
                 <th>Actions</th>
             </tr>
             </thead>
@@ -78,24 +77,14 @@
             <tr th:each="property : ${properties}">
                 <td th:text="${property.title}"></td>
                 <td th:text="${property.price} + '€'"></td>
-                <td th:text="${property.squareMeters} + ' m2'"></td>
+                <td th:text="${property.squareMeters} + 'm2'"></td>
                 <td>
                     <a th:if="${property.owner != null}"
                        th:href="@{'/owner/' + ${property.owner.username}}"
                        th:text="${property.owner.username}"></a>
                 </td>
                 <td>
-                    <span th:if="${property.tenants != null}" th:text="${property.tenants.size()}"></span>
-                </td>
-                <td>
                     <a class="btn btn-outline-primary btn-sm" th:href="@{'/property/' + ${property.title}}">Details</a>
-                    <span  sec:authorize="hasRole('ROLE_ADMIN')">
-                            <a class="btn btn-outline-light btn-sm" th:href="@{'/property/Tenantassign/' + ${property.title}}">Assign Tenant</a>
-                        </span>
-                    <span sec:authorize="hasRole('ROLE_TENANT')">
-                        <a class="btn btn-outline-success btn-sm"
-                           th:href="@{'/rental/apply/' + ${property.title}}">Request Rental</a>
-                    </span>
                 </td>
             </tr>
             </tbody>

@@ -5,29 +5,29 @@
       layout:decorate="~{page_layout/layout}">
 <head>
     <meta charset="UTF-8">
-    <title>Admin - Tenants</title>
+    <title>Admins List</title>
 </head>
 <body>
 <div layout:fragment="main-content">
-    <h1>Tenants List</h1>
-    <div th:if="${#lists.isEmpty(tenants)}">
-        <p>No tenants found.</p>
+    <h1>Admins List</h1>
+    <div th:if="${#lists.isEmpty(admins)}">
+        <p>No admins found.</p>
     </div>
-    <div th:if="${!#lists.isEmpty(tenants)}">
+    <div th:if="${!#lists.isEmpty(admins)}">
         <table class="table">
             <thead>
             <tr>
                 <th>Username</th>
-                <th>Emails</th>
+                <th>Email</th>
                 <th>Actions</th>
             </tr>
             </thead>
             <tbody>
-            <tr th:each="tenant : ${tenants}">
-                <td th:text="${tenant.username}">Username</td>
-                <td th:text="${tenant.email}">Email</td>
+            <tr th:each="admin : ${admins}">
+                <td th:text="${admin.username}">Username</td>
+                <td th:text="${admin.email}">Email</td>
                 <td>
-                    <a class="btn btn-info btn-sm" th:href="@{'/user/' + ${tenant.username}}">View Profile</a>
+                    <a class="btn btn-info btn-sm" th:href="@{'/user/' + ${admin.username}}">View Profile</a>
                 </td>
             </tr>
             </tbody>

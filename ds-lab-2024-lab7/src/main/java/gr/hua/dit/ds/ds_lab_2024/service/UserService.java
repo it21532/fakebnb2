@@ -38,11 +38,6 @@ public class UserService implements UserDetailsService {
             throw new UsernameNotFoundException("User with username: " + user.getUsername() + " not found!");
         }
         User existingUser = existingOpt.get();
-        if (user.getPassword() == null || user.getPassword().trim().isEmpty()) {
-            user.setPassword(existingUser.getPassword());
-        } else {
-            user.setPassword(passwordEncoder.encode(user.getPassword()));
-        }
         user.setEmail(user.getEmail());
         return userRepository.save(user);
     }

@@ -20,15 +20,15 @@
             <tr>
                 <th>Tenant</th>
                 <th>Property</th>
-                <th>Status</th>
+                <th>Dates</th>
                 <th>Actions</th>
             </tr>
             </thead>
             <tbody>
             <tr th:each="app : ${pendingApplications}">
-                <td th:text="${app.tenant.username}">Tenant Username</td>
+                <td><a class="btn btn-info" th:text="${app.tenant.username}" th:href="@{'/user/' + ${app.tenant.username}}"></a></td>
                 <td th:text="${app.property.title}">Property Title</td>
-                <td th:text="${app.status}">Status</td>
+                <td th:text="'Not specified yet'">Unspecified</td>
                 <td>
                     <form th:action="@{'/owner/rentalRequests/' + ${owner.username} + '/' + ${app.id} + '/approve'}" method="post" style="display:inline">
                         <button type="submit" class="btn btn-success">Approve</button>
